@@ -72,8 +72,16 @@ class MyGUI:
         self.add_widgets()
         
         # Generate DMA class
-        self.dma1 = DMA.DMAscan(1, entriesDAQ1,entriesScan1,entriesHV1,entriesFileName,entriesDMA1)
-        self.dma2 = DMA.DMAscan(2, entriesDAQ2,entriesScan2,entriesHV2,entriesFileName,entriesDMA2)
+        self.dma1 = DMA.DMAscan(1, self.entriesDAQ1,
+                                self.entriesScan1,
+                                self.entriesHV1,
+                                self.entriesFileName,
+                                self.entriesDMA1)
+        self.dma2 = DMA.DMAscan(2, self.entriesDAQ2,
+                                self.entriesScan2,
+                                self.entriesHV2,
+                                self.entriesFileName,
+                                self.entriesDMA2)
         
         self.Buttons()
         
@@ -117,7 +125,8 @@ class MyGUI:
         plot_options = ["Diameter", "Voltage", "Mobility", "Charges"]
         var_plot_options = tk.StringVar()
         var_plot_options.set("Voltage")
-        DropMenu_plot_options = tk.OptionMenu(window, var_plot_options, *plot_options, command=define_plot_option)
+        DropMenu_plot_options = tk.OptionMenu(self.window, var_plot_options, *plot_options,
+                                              command=self.define_plot_option)
         DropMenu_plot_options.place(x=(620+dx0)*scale_width,
                                     y=560*scale_height)
 
@@ -183,13 +192,13 @@ class MyGUI:
                             height=280*scale_height)
     
         # Labels for variables
-        labelsDAQ=np.array(["CPC connection","V_CPC min","V_CPC max",
+        self.labelsDAQ=np.array(["CPC connection","V_CPC min","V_CPC max",
                             "HV1 connection","V_HV1 min","V_HV1 max",
                             "HV2 connection","V_HV2 min","V_HV2 max"])
-        labelsScan=np.array(["Min voltage","Max voltage","Time per a bin","Number of bins","Delay time","HV mode","CPC mode"])
-        labelsHV=np.array(["      Slope      ","Bias"])
-        labelsFix=np.array(["      Voltage      ","CPC mode"])
-        labelsDMA=np.array(["Lenght","Inner radius","Outer radius","Sheath flow","Aerosol flow"])
+        self.labelsScan=np.array(["Min voltage","Max voltage","Time per a bin","Number of bins","Delay time","HV mode","CPC mode"])
+        self.labelsHV=np.array(["      Slope      ","Bias"])
+        self.labelsFix=np.array(["      Voltage      ","CPC mode"])
+        self.labelsDMA=np.array(["Lenght","Inner radius","Outer radius","Sheath flow","Aerosol flow"])
 
         # Units of variables
         unitsDAQ=np.array([" ","V","V"," ","V","V"," ","V","V"])
@@ -222,108 +231,108 @@ class MyGUI:
         self.entriesDMA2=[]
 
         # Arrange labels, entries, and units in frames
-        for i in np.arange(np.size(labelsDAQ)-3):
-            label = tk.Label(frameDAQ,text=labelsDAQ[i],background=bgColor,foreground=cColor)
+        for i in np.arange(np.size(self.labelsDAQ)-3):
+            label = tk.Label(self.frameDAQ,text=self.labelsDAQ[i],background=bgColor,foreground=cColor)
             label.grid(row=[i],column=0)
-            self.entriesDAQ1=np.append(self.entriesDAQ1,tk.Entry(frameDAQ,width=10))
+            self.entriesDAQ1=np.append(self.entriesDAQ1,tk.Entry(self.frameDAQ,width=10))
             self.entriesDAQ1[i].grid(row=[i],column=1,sticky=tk.EW)
             self.entriesDAQ1[i].delete(0,tk.END)
             self.entriesDAQ1[i].insert(tk.END,initialsDAQ[i])
-            label = tk.Label(frameDAQ,text=unitsDAQ[i],background=bgColor,foreground=cColor)
+            label = tk.Label(self.frameDAQ,text=unitsDAQ[i],background=bgColor,foreground=cColor)
             label.grid(row=[i],column=2)
         j=0
-        for i in np.append(np.arange(3), np.arange(np.size(labelsDAQ)-3,np.size(labelsDAQ))):
-            label = tk.Label(frameDAQ,text=labelsDAQ[i],background=bgColor,foreground=cColor)
+        for i in np.append(np.arange(3), np.arange(np.size(self.labelsDAQ)-3,np.size(self.labelsDAQ))):
+            label = tk.Label(self.frameDAQ,text=self.labelsDAQ[i],background=bgColor,foreground=cColor)
             label.grid(row=[i],column=0)
-            self.entriesDAQ2=np.append(self.entriesDAQ2,tk.Entry(frameDAQ,width=10))
+            self.entriesDAQ2=np.append(self.entriesDAQ2,tk.Entry(self.frameDAQ,width=10))
             self.entriesDAQ2[j].grid(row=[i],column=1,sticky=tk.EW)
             self.entriesDAQ2[j].delete(0,tk.END)
             self.entriesDAQ2[j].insert(tk.END,initialsDAQ[i])
-            label = tk.Label(frameDAQ,text=unitsDAQ[i],background=bgColor,foreground=cColor)
+            label = tk.Label(self.frameDAQ,text=unitsDAQ[i],background=bgColor,foreground=cColor)
             label.grid(row=[i],column=2)
             j = j+1
-        for i in np.arange(np.size(labelsScan)):
-            label = tk.Label(frameScan1,text=labelsScan[i],background=bgColor,foreground=cColor)
+        for i in np.arange(np.size(self.labelsScan)):
+            label = tk.Label(self.frameScan1,text=self.labelsScan[i],background=bgColor,foreground=cColor)
             label.grid(row=[i],column=0)
-            self.entriesScan1=np.append(self.entriesScan1,tk.Entry(frameScan1,width=10))
+            self.entriesScan1=np.append(self.entriesScan1,tk.Entry(self.frameScan1,width=10))
             self.entriesScan1[i].grid(row=[i],column=1,sticky=tk.EW)
             self.entriesScan1[i].delete(0,tk.END)
             self.entriesScan1[i].insert(tk.END,initialsScan1[i])
-            label = tk.Label(frameScan1,text=unitsScan[i],background=bgColor,foreground=cColor)
+            label = tk.Label(self.frameScan1,text=unitsScan[i],background=bgColor,foreground=cColor)
             label.grid(row=[i],column=2)
-        for i in np.arange(np.size(labelsScan)):
-            label = tk.Label(frameScan2,text=labelsScan[i],background=bgColor,foreground=cColor)
+        for i in np.arange(np.size(self.labelsScan)):
+            label = tk.Label(self.frameScan2,text=self.labelsScan[i],background=bgColor,foreground=cColor)
             label.grid(row=[i],column=0)
-            self.entriesScan2=np.append(self.entriesScan2,tk.Entry(frameScan2,width=10))
+            self.entriesScan2=np.append(self.entriesScan2,tk.Entry(self.frameScan2,width=10))
             self.entriesScan2[i].grid(row=[i],column=1,sticky=tk.EW)
             self.entriesScan2[i].delete(0,tk.END)
             self.entriesScan2[i].insert(tk.END,initialsScan2[i])
-            label = tk.Label(frameScan2,text=unitsScan[i],background=bgColor,foreground=cColor)
+            label = tk.Label(self.frameScan2,text=unitsScan[i],background=bgColor,foreground=cColor)
             label.grid(row=[i],column=2)
-        for i in np.arange(np.size(labelsHV)):
-            label = tk.Label(frameHV1,text=labelsHV[i],background=bgColor,foreground=cColor)
+        for i in np.arange(np.size(self.labelsHV)):
+            label = tk.Label(self.frameHV1,text=self.labelsHV[i],background=bgColor,foreground=cColor)
             label.grid(row=[i],column=0)
-            self.entriesHV1=np.append(self.entriesHV1,tk.Entry(frameHV1,width=10))
+            self.entriesHV1=np.append(self.entriesHV1,tk.Entry(self.frameHV1,width=10))
             self.entriesHV1[i].grid(row=[i],column=1,sticky=tk.EW)
             self.entriesHV1[i].delete(0,tk.END)
             self.entriesHV1[i].insert(tk.END,initialsHV1[i])
-            label = tk.Label(frameHV1,text=unitsHV[i],background=bgColor,foreground=cColor)
+            label = tk.Label(self.frameHV1,text=unitsHV[i],background=bgColor,foreground=cColor)
             label.grid(row=[i],column=2)
-        for i in np.arange(np.size(labelsHV)):
-            label = tk.Label(frameHV2,text=labelsHV[i],background=bgColor,foreground=cColor)
+        for i in np.arange(np.size(self.labelsHV)):
+            label = tk.Label(self.frameHV2,text=self.labelsHV[i],background=bgColor,foreground=cColor)
             label.grid(row=[i],column=0)
-            self.entriesHV2=np.append(self.entriesHV2,tk.Entry(frameHV2,width=10))
+            self.entriesHV2=np.append(self.entriesHV2,tk.Entry(self.frameHV2,width=10))
             self.entriesHV2[i].grid(row=[i],column=1,sticky=tk.EW)
             self.entriesHV2[i].delete(0,tk.END)
             self.entriesHV2[i].insert(tk.END,initialsHV2[i])
-            label = tk.Label(frameHV2,text=unitsHV[i],background=bgColor,foreground=cColor)
+            label = tk.Label(self.frameHV2,text=unitsHV[i],background=bgColor,foreground=cColor)
             label.grid(row=[i],column=2)
-        for i in np.arange(np.size(labelsFix)):
-            label = tk.Label(frameFix1,text=labelsFix[i],background=bgColor,foreground=cColor)
+        for i in np.arange(np.size(self.labelsFix)):
+            label = tk.Label(self.frameFix1,text=self.labelsFix[i],background=bgColor,foreground=cColor)
             label.grid(row=[i],column=0)
-            self.entriesFix1=np.append(self.entriesFix1,tk.Entry(frameFix1,width=10))
+            self.entriesFix1=np.append(self.entriesFix1,tk.Entry(self.frameFix1,width=10))
             self.entriesFix1[i].grid(row=[i],column=1,sticky=tk.EW)
             self.entriesFix1[i].delete(0,tk.END)
             self.entriesFix1[i].insert(tk.END,initialsFix1[i])
-            label = tk.Label(frameFix1,text=unitsFix[i],background=bgColor,foreground=cColor)
+            label = tk.Label(self.frameFix1,text=unitsFix[i],background=bgColor,foreground=cColor)
             label.grid(row=[i],column=2)
-        for i in np.arange(np.size(labelsFix)):
-            label = tk.Label(frameFix2,text=labelsFix[i],background=bgColor,foreground=cColor)
+        for i in np.arange(np.size(self.labelsFix)):
+            label = tk.Label(self.frameFix2,text=self.labelsFix[i],background=bgColor,foreground=cColor)
             label.grid(row=[i],column=0)
-            self.entriesFix2=np.append(self.entriesFix2,tk.Entry(frameFix2,width=10))
+            self.entriesFix2=np.append(self.entriesFix2,tk.Entry(self.frameFix2,width=10))
             self.entriesFix2[i].grid(row=[i],column=1,sticky=tk.EW)
             self.entriesFix2[i].delete(0,tk.END)
             self.entriesFix2[i].insert(tk.END,initialsFix2[i])
-            label = tk.Label(frameFix2,text=unitsFix[i],background=bgColor,foreground=cColor)
+            label = tk.Label(self.frameFix2,text=unitsFix[i],background=bgColor,foreground=cColor)
             label.grid(row=[i],column=2)
-        for i in np.arange(np.size(labelsDMA)):
-            label = tk.Label(frameDMA1,text=labelsDMA[i],background=bgColor,foreground=cColor)
+        for i in np.arange(np.size(self.labelsDMA)):
+            label = tk.Label(self.frameDMA1,text=self.labelsDMA[i],background=bgColor,foreground=cColor)
             label.grid(row=[i],column=0)
-            self.entriesDMA1=np.append(self.entriesDMA1,tk.Entry(frameDMA1,width=10))
+            self.entriesDMA1=np.append(self.entriesDMA1,tk.Entry(self.frameDMA1,width=10))
             self.entriesDMA1[i].grid(row=[i],column=1,sticky=tk.EW)
             self.entriesDMA1[i].delete(0,tk.END)
             self.entriesDMA1[i].insert(tk.END,initialsDMA1[i])
-            label = tk.Label(frameDMA1,text=unitsDMA[i],background=bgColor,foreground=cColor)
+            label = tk.Label(self.frameDMA1,text=unitsDMA[i],background=bgColor,foreground=cColor)
             label.grid(row=[i],column=2)
-        for i in np.arange(np.size(labelsDMA)):
-            label = tk.Label(frameDMA2,text=labelsDMA[i],background=bgColor,foreground=cColor)
+        for i in np.arange(np.size(self.labelsDMA)):
+            label = tk.Label(self.frameDMA2,text=self.labelsDMA[i],background=bgColor,foreground=cColor)
             label.grid(row=[i],column=0)
-            self.entriesDMA2=np.append(self.entriesDMA2,tk.Entry(frameDMA2,width=10))
+            self.entriesDMA2=np.append(self.entriesDMA2,tk.Entry(self.frameDMA2,width=10))
             self.entriesDMA2[i].grid(row=[i],column=1,sticky=tk.EW)
             self.entriesDMA2[i].delete(0,tk.END)
             self.entriesDMA2[i].insert(tk.END,initialsDMA2[i])
-            label = tk.Label(frameDMA2,text=unitsDMA[i],background=bgColor,foreground=cColor)
+            label = tk.Label(self.frameDMA2,text=unitsDMA[i],background=bgColor,foreground=cColor)
             label.grid(row=[i],column=2)
 
         # File control
-        self.entriesFileName=tk.Entry(frameFile,width=50)
+        self.entriesFileName=tk.Entry(self.frameFile,width=50)
         self.entriesFileName.grid(row=0,column=1,sticky=tk.EW)
         self.entriesFileName.delete(0,tk.END)
         self.entriesFileName.insert(tk.END,"")
         for i in [0,2,4]:
             tk.Label(self.frameFile,text=" ",background=bgColor).grid(row=0,column=i)
             
-        open_button = tk.Button(self.frameFile,text='Select a File',command=select_file)
+        open_button = tk.Button(self.frameFile,text='Select a File',command=self.select_file)
         open_button.grid(row=0,column=3,sticky=tk.EW)
     
     def select_file(self):
@@ -400,52 +409,52 @@ class MyGUI:
         # SCAN Stop-1/start-1
         stop1=tk.Button(self.frameScan1,text="Stop",background="blue4",foreground=cColor,width=20,height=2,
                     command=lambda:self.stopScan1())
-        stop1.grid(row=np.size(labelsScan)+1,column=0,columnspan=3)
-        start1=tk.Button(frameScan1,text="Start DMA1 scan",background="blue4",foreground=cColor,width=20,height=2,
+        stop1.grid(row=np.size(self.labelsScan)+1,column=0,columnspan=3)
+        start1=tk.Button(self.frameScan1,text="Start DMA1 scan",background="blue4",foreground=cColor,width=20,height=2,
                      command=lambda:self.startScan1())
-        start1.grid(row=np.size(labelsScan),column=0,columnspan=3)
+        start1.grid(row=np.size(self.labelsScan),column=0,columnspan=3)
         # SCAN Stop-2/start-2
-        stop2=tk.Button(frameScan2,text="Stop",background="blue4",foreground=cColor,width=20,height=2,
+        stop2=tk.Button(self.frameScan2,text="Stop",background="blue4",foreground=cColor,width=20,height=2,
                     command=lambda:self.stopScan2())
-        stop2.grid(row=np.size(labelsScan)+1,column=0,columnspan=3)
-        start2=tk.Button(frameScan2,text="Start DMA2 scan",background="blue4",foreground=cColor,width=20,height=2,
+        stop2.grid(row=np.size(self.labelsScan)+1,column=0,columnspan=3)
+        start2=tk.Button(self.frameScan2,text="Start DMA2 scan",background="blue4",foreground=cColor,width=20,height=2,
                      command=lambda:self.startScan2())
-        start2.grid(row=np.size(labelsScan),column=0,columnspan=3)
+        start2.grid(row=np.size(self.labelsScan),column=0,columnspan=3)
         # FIX Stop-1/start-1
-        stopFix1=tk.Button(frameFix1,text="Stop",background="blue4",foreground=cColor,width=20,height=2,
+        stopFix1=tk.Button(self.frameFix1,text="Stop",background="blue4",foreground=cColor,width=20,height=2,
                        command=lambda:self.stopScan1())
-        stopFix1.grid(row=np.size(labelsFix)+1,column=0,columnspan=3)
-        startFix1=tk.Button(frameFix1,text="Start",background="blue4",foreground=cColor,width=20,height=2,
+        stopFix1.grid(row=np.size(self.labelsFix)+1,column=0,columnspan=3)
+        startFix1=tk.Button(self.frameFix1,text="Start",background="blue4",foreground=cColor,width=20,height=2,
                         command=lambda:self.startFixV1())
-        startFix1.grid(row=np.size(labelsFix),column=0,columnspan=3)
+        startFix1.grid(row=np.size(self.labelsFix),column=0,columnspan=3)
         # FIX Stop-2/start-2
-        stopFix2=tk.Button(frameFix2,text="Stop",background="blue4",foreground=cColor,width=20,height=2,
+        stopFix2=tk.Button(self.frameFix2,text="Stop",background="blue4",foreground=cColor,width=20,height=2,
                        command=lambda:self.stopScan2())
-        stopFix2.grid(row=np.size(labelsFix)+1,column=0,columnspan=3)
-        startFix2=tk.Button(frameFix2,text="Start",background="blue4",foreground=cColor,width=20,height=2,
+        stopFix2.grid(row=np.size(self.labelsFix)+1,column=0,columnspan=3)
+        startFix2=tk.Button(self.frameFix2,text="Start",background="blue4",foreground=cColor,width=20,height=2,
                         command=lambda:self.startFixV2())
-        startFix2.grid(row=np.size(labelsFix),column=0,columnspan=3)
+        startFix2.grid(row=np.size(self.labelsFix),column=0,columnspan=3)
 
         self.frameDAQ.grid_columnconfigure(1, weight=1)
-        self.frameDAQ.grid_rowconfigure(list(range(np.size(labelsDAQ))), weight=1)
+        self.frameDAQ.grid_rowconfigure(list(range(np.size(self.labelsDAQ))), weight=1)
         self.frameScan1.grid_columnconfigure(1, weight=1)
-        self.frameScan1.grid_rowconfigure(list(range(np.size(labelsScan)+2)), weight=1)
+        self.frameScan1.grid_rowconfigure(list(range(np.size(self.labelsScan)+2)), weight=1)
         self.frameScan2.grid_columnconfigure(1, weight=1)
-        self.frameScan2.grid_rowconfigure(list(range(np.size(labelsScan)+2)), weight=1)
+        self.frameScan2.grid_rowconfigure(list(range(np.size(self.labelsScan)+2)), weight=1)
         self.frameHV1.grid_columnconfigure(1, weight=1)
-        self.frameHV1.grid_rowconfigure(list(range(np.size(labelsHV))), weight=1)
+        self.frameHV1.grid_rowconfigure(list(range(np.size(self.labelsHV))), weight=1)
         self.frameHV2.grid_columnconfigure(1, weight=1)
-        self.frameHV2.grid_rowconfigure(list(range(np.size(labelsHV))), weight=1)
+        self.frameHV2.grid_rowconfigure(list(range(np.size(self.labelsHV))), weight=1)
         self.frameFile.grid_columnconfigure(1, weight=1)
         self.frameFile.grid_rowconfigure(list(range(1)), weight=1)
         self.frameFix1.grid_columnconfigure(1, weight=1)
-        self.frameFix1.grid_rowconfigure(list(range(np.size(labelsFix)+2)), weight=1)
+        self.frameFix1.grid_rowconfigure(list(range(np.size(self.labelsFix)+2)), weight=1)
         self.frameFix2.grid_columnconfigure(1, weight=1)
-        self.frameFix2.grid_rowconfigure(list(range(np.size(labelsFix)+2)), weight=1)
+        self.frameFix2.grid_rowconfigure(list(range(np.size(self.labelsFix)+2)), weight=1)
         self.frameDMA1.grid_columnconfigure(1, weight=1)
-        self.frameDMA1.grid_rowconfigure(list(range(np.size(labelsDMA))), weight=1)
+        self.frameDMA1.grid_rowconfigure(list(range(np.size(self.labelsDMA))), weight=1)
         self.frameDMA2.grid_columnconfigure(1, weight=1)
-        self.frameDMA2.grid_rowconfigure(list(range(np.size(labelsDMA))), weight=1)
+        self.frameDMA2.grid_rowconfigure(list(range(np.size(self.labelsDMA))), weight=1)
     
         # Plot TDMA diagram
         Plot_TDMA_diagram(self.frameFig)
@@ -463,9 +472,10 @@ class MyGUI:
                                     scale_width,
                                     scale_height)
                 self.dma2.updateFlag=0
-        self.window.after(1000, update)
+        self.window.after(1000, self.update)
 
     #window.mainloop()
+
 
 app = MyGUI()
 app.root.mainloop()
