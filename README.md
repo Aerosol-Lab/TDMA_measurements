@@ -1,7 +1,9 @@
 # TDMA control with DAQ (NI)
 ## 1. Overview
 This code allows controlling 2 DMA's, their respective HV units, and a CPC for conducting TDMA measurements.  This code works with GUI as shown in the figure below.
-<img width="497" alt="fig1" src="https://user-images.githubusercontent.com/62391931/229002061-9c3ec45d-a4f5-4414-8076-6cedfea41ca8.png">
+
+<img width="600" alt="fig1" src="https://user-images.githubusercontent.com/62391931/229002061-9c3ec45d-a4f5-4414-8076-6cedfea41ca8.png">
+
 ## 2. Usage
 ### 2.1. Executable version
 TBA 
