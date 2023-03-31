@@ -61,7 +61,7 @@ class DMAscan:
         myu=1.822e-5
         return Cc*z*1.6e-19/(3*np.pi*myu*dp)
     
-    def Search_z_givenZpDp(self, Dp, q_max=1000):
+    def Search_z_givenZpDp(self, Dp, q_max=200):
         error = 1e+06
         z = 1
         for q in range(1,q_max+1):
