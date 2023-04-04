@@ -15,7 +15,12 @@ Most of labraries are installed for Anaconda user case but you only need to down
 * For not Anaconda user
 You need to install the modules if it isn't: Numpy, Tkinter, Matplotlib, and [NI-DAQ driver](https://www.ni.com/en-us/support/downloads/drivers/download.ni-daqmx.html#460239), then you can run `HV.py`.  Here, the explanation is brielf since "not Anaconda" user may know a lot how to install and use it.
 
-# Authors
+## Post-processing
+
+For post-processing these measurements use the following GitHub repository:
+  [Bidimensional_TDMA_inversion](https://github.com/Aerosol-Lab/Bidimensional_TDMA_inversion)
+
+## Authors
 * Dr. José Morán
 * Dr. Tomoya Tamadate
 * Hogan Lab.
